@@ -4,7 +4,6 @@ import testimonials from "../assets/dummyTestimonial";
 import {
   BadgeCheck,
   CalendarDays,
-  MessageSquareCode,
   MessageSquareQuote,
 } from "lucide-react";
 

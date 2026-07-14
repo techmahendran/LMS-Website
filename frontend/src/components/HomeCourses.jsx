@@ -2,10 +2,13 @@ import { useEffect, useState } from "react";
 import { ArrowRight, Star, User } from "lucide-react";
 import { homeCoursesStyles } from "../assets/dummyStyles";
 import { useNavigate } from "react-router-dom";
-import coursesData from "../assets/dummyHdata";
-import { Slide, toast, ToastContainer } from "react-toastify";
+import { useCourses } from "../context/CoursesContext";
+import { useUser } from "@clerk/react";
+import { api } from "../services/api";
 
 const HomeCourses = () => {
+  const coursesData = useCourses();
+  const { user } = useUser();
   const navigate = useNavigate();
   const { title, course: courseFont, detail } = homeCoursesStyles.fonts;
   const visableCourses = coursesData.slice(0, 8);
@@ -28,44 +31,18 @@ const HomeCourses = () => {
     }
   }, [userRatings]);
 
-  const showLoginToast = () => {
-    toast.error("Please login to access this course", {
-      position: "top-right",
-      transition: Slide,
-      autoClose: 3000,
-      theme: "dark",
-    });
-  };
-
   const handleCourseClick = (id) => {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      showLoginToast();
-      return;
-    }
     navigate(`/course/${id}`);
   };
 
   const handleBrowseClick = () => {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      toast.error("Please login to access courses", {
-        position: "top-right",
-        transition: Slide,
-        autoClose: 3000,
-        theme: "dark",
-      });
-      return;
-    }
-
     navigate("/courses");
   };
 
   const handleSetRating = (e, courseId, rating) => {
     e.stopPropagation();
     setUserRatings((prev) => ({ ...prev, [courseId]: rating }));
+    if (user) api(`/ratings/${courseId}`, { userId: user.id, method: "PUT", body: JSON.stringify({ value: rating }) }).catch(() => {});
   };
 
   const renderInteractiveStars = (course) => {
@@ -220,13 +197,6 @@ const HomeCourses = () => {
             </div>
           </div>
         </div>
-
-        <ToastContainer
-          position="top-right"
-          autoClose={3000}
-          theme="dark"
-          transition={Slide}
-        />
 
         <style>{homeCoursesStyles.animations}</style>
       </div>

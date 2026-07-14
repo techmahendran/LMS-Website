@@ -43,7 +43,7 @@ export const contactInfo = {
   phoneHours: "Mon - Sat, 9:00 AM - 6:00 PM",
   email: "info@example.com",
   website: "https://www.example.com",
-  designBy: "Example Digital Solutions",
+  designBy: "Mahendran M",
 };
 
 export default {

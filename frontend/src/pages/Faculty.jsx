@@ -1,0 +1,5 @@
+import { Mail } from "lucide-react";
+import { IconBrandLinkedin } from "@tabler/icons-react";
+import { teamMembers } from "../assets/dummyAbout";
+import PageLayout from "../components/PageLayout";
+export default function Faculty(){return <PageLayout><section className="mx-auto max-w-7xl px-4 py-16 text-center"><p className="font-semibold text-cyan-700">Meet your mentors</p><h1 className="mt-2 text-4xl font-black sm:text-5xl">Learn from industry experts</h1><p className="mx-auto mt-4 max-w-2xl text-slate-600">Experienced professionals committed to helping you build practical, career-ready skills.</p><div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">{teamMembers.map(x=><article key={x.name} className="overflow-hidden rounded-2xl bg-white shadow-sm"><img src={x.image} alt={x.name} className="aspect-square w-full object-cover"/><div className="p-5"><h2 className="text-xl font-bold">{x.name}</h2><p className="text-cyan-700">{x.role}</p><p className="mt-2 text-sm text-slate-500">{x.bio}</p><div className="mt-4 flex justify-center gap-3 text-slate-500"><IconBrandLinkedin size={19}/><Mail size={19}/></div></div></article>)}</div></section></PageLayout>}

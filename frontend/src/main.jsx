@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { ClerkProvider } from "@clerk/react";
 import App from "./App";
 import "./index.css";
+import { CoursesProvider } from "./context/CoursesContext";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -16,7 +17,7 @@ createRoot(document.getElementById("root")).render(
     afterSignOutUrl="/"
   >
     <BrowserRouter>
-      <App />
+      <CoursesProvider><App /></CoursesProvider>
     </BrowserRouter>
   </ClerkProvider>
 );

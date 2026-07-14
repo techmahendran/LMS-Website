@@ -5,16 +5,14 @@ import {
   BookMarked,
   BookOpen,
   Contact,
+  GraduationCap,
   Home,
   Menu,
   Users,
   X,
 } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import {
-  Show,
-  SignInButton,
-  SignUpButton,
   UserButton,
   useAuth,
   useClerk,
@@ -43,8 +41,6 @@ const Navbar = () => {
   const [showNavbar, setShowNavbar] = useState(true);
 
   const menuRef = useRef(null);
-  const isLoggedIn = isSignedIn && Boolean(localStorage.getItem("token"));
-
   // fetch token
   useEffect(() => {
     const loadToken = async () => {
@@ -125,12 +121,12 @@ const Navbar = () => {
         <div className={navbarStyles.container}>
           <div className={navbarStyles.innerContainer}>
             {/* LOGO */}
-            <div className="flex items-center gap-3 select-none">
+            <Link to="/" className="flex items-center gap-3 select-none">
               <img src={logo} alt="LOGO" className="w-12 h-12" />
               <div className="text-xl font-bold bg-clip-text text-transparent bg-linear-to-r from-sky-700 to-cyan-600 font-serif leading-[0.95]">
                 SkillForge
               </div>
-            </div>
+            </Link>
 
             {/* Destop nav */}
             <div className={navbarStyles.desktopNav}>
@@ -172,7 +168,8 @@ const Navbar = () => {
                   <span>Create Account</span>
                 </button>
               ) : (
-                <div className="flex items-center">
+                <div className="flex items-center gap-3">
+                  <NavLink to="/dashboard" aria-label="Dashboard" className="hidden text-slate-600 hover:text-cyan-700 sm:block"><GraduationCap size={22}/></NavLink>
                   <UserButton afterSignOutUrl="/" />
                 </div>
               )}
@@ -233,8 +230,9 @@ const Navbar = () => {
                     <span>Create Account</span>
                   </button>
                 ) : (
-                  <div className="px-4 py-2">
+                  <div className="flex items-center gap-3 px-4 py-2">
                     <UserButton afterSignOutUrl="/" />
+                    <NavLink to="/dashboard" onClick={() => setIsOpen(false)} className="font-semibold text-slate-700">My Dashboard</NavLink>
                   </div>
                 )}
               </div>

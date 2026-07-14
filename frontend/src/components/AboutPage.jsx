@@ -4,15 +4,12 @@ import {
   counterTargets,
   statsMeta,
   missionVisionValues,
-  teamMembers,
   values,
-  testimonials,
 } from "../assets/dummyAbout";
 
 import AboutBanner from "../assets/AboutBannerImage.png";
 import { Star } from "lucide-react";
 import { useEffect, useState } from "react";
-import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 const AboutPage = () => {
   const [counterValues, setCounterValues] = useState({
@@ -135,17 +132,19 @@ const AboutPage = () => {
                 index % 2 === 1 ? "lg:grid-flow-dense" : ""
               }`}
             >
-              <div
-                className={`${aboutUsStyles.sectionImageContainer} ${index % 2 === 1 ? "lg:col-start-2" : ""}`}
-              >
-                <div className={aboutUsStyles.sectionImage}>
-                  <DotLottieReact src={section.dotLottie} loop autoplay />
-                </div>
-              </div>
+              <article className={`rounded-3xl bg-white p-6 shadow-xl sm:p-10 ${index % 2 === 1 ? "lg:col-start-2" : ""}`}>
+                <section.icon className="h-12 w-12 text-cyan-700" />
+                <p className="mt-6 font-semibold text-cyan-700">{section.subtitle}</p>
+                <h2 className="mt-2 text-3xl font-black text-slate-900">{section.title}</h2>
+                <p className="mt-4 leading-7 text-slate-600">{section.description}</p>
+                <ul className="mt-6 grid gap-3 sm:grid-cols-2">{section.features.map((feature) => <li key={feature} className="rounded-xl bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700">✓ {feature}</li>)}</ul>
+              </article>
             </div>
           </div>
         </section>
       ))}
+
+      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8"><div className="text-center"><p className="font-semibold text-cyan-700">What drives us</p><h2 className="mt-2 text-3xl font-black text-slate-900">Learning built around you</h2></div><div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">{values.map((value) => <article key={value.title} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"><h3 className="text-xl font-bold text-slate-900">{value.title}</h3><p className="mt-3 text-sm leading-6 text-slate-600">{value.description}</p></article>)}</div></section>
 
       <style>{aboutUsAnimations}</style>
     </div>
